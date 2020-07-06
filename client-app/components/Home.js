@@ -6,56 +6,36 @@ import ItemCarousel from './ItemCarousel';
 
 export default class Home extends Component{
   state = {
-    userData: null
+    Top5: [],
+    Trending: []
   }
 
-  componentDidMount() {
-    axios.get('https://reqres.in/api/users/2')
-    .then(res => {
-        this.props.navigation.setOptions({
-          title: `Welcome ${res.data.data.first_name}!`
-        })
-        this.setState({
-          userData: res.data
-      })
-    })
-    .catch(console.log)    
+  async componentDidMount() {
+    try {
+      const res = await axios.get('http://192.168.1.104:5000/home')
+      const { Top5, Trending } = res.data
+      this.setState({
+        Top5,
+        Trending
+      })    
+    } catch(error) {
+      console.log(error)
+    }    
   }
 
   render() {
-    const carouselItems = [
-      {
-        desc: "Canon EOS 1500D 24.1 Digital SLR Camera (Black) with EF S18-55 is II Lens, 16GB Card and Carry Case", 
-        name: "Canon EOS 1500D 24.1", 
-        url: "https://images-eu.ssl-images-amazon.com/images/I/51UHoxzInpL._AC_SX184_.jpg"
-      }, 
-      {
-        desc: "Sony Alpha ILCE5100L 24.3MP Digital SLR Camera (Black) with 16-50mm Lens with Free Case (Bag)", 
-        name: "Sony Alpha ILCE5100L 24.3MP", 
-        url: "https://images-eu.ssl-images-amazon.com/images/I/41+-LjzbkuL._AC_SX184_.jpg"
-      }, 
-      {
-        desc: "Canon EOS 200D II 24.1MP Digital SLR Camera + EF-S 18-55mm is STM Lens + EF-S 55-250mm is STM Lens (Black)", 
-        name: "Canon EOS 200D", 
-        url: "https://images-na.ssl-images-amazon.com/images/I/415ZSUQ2erL.jpg"
-      }, 
-      {
-        desc: "Sony Alpha ILCE 6000Y 24.3 MP Mirrorless Digital SLR Camera with 16-50 mm and 55-210 mm Zoom Lenses (APS-C Sensor, Fast Auto Focus, Eye AF) - Black", 
-        name: "Sony Alpha ILCE 6000Y 24.3 MP ", 
-        url: "https://images-eu.ssl-images-amazon.com/images/I/51QiHopSU8L._AC_SX184_.jpg"
-      }
-    ]
+    const { Top5, Trending } = this.state
 
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.carousel}>
-          <Text> Trending today</Text>
-          <ItemCarousel carouselItems={carouselItems}/>
+          <Text> You may like </Text>
+          <ItemCarousel carouselItems={Top5}/>
         </View>
         <View style={styles.carousel}>
-          <Text> You may like</Text>
-          <ItemCarousel carouselItems={carouselItems}/>
+          <Text> Trending today </Text>
+          <ItemCarousel carouselItems={Trending}/>
         </View>
         <View style={styles.button}>
           <Button
