@@ -7,28 +7,6 @@ import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 export default class ItemCarousel extends React.Component { 
   state = {
     activeIndex:0,
-    carouselItems: [
-      {
-          title:"Item 1",
-          text: "Text 1",
-      },
-      {
-          title:"Item 2",
-          text: "Text 2",
-      },
-      {
-          title:"Item 3",
-          text: "Text 3",
-      },
-      {
-          title:"Item 4",
-          text: "Text 4",
-      },
-      {
-          title:"Item 5",
-          text: "Text 5",
-      },
-    ]
   }  
 
   _renderItem({item,index}){
@@ -41,9 +19,24 @@ export default class ItemCarousel extends React.Component {
         <View style={styles.footer}>
           <Text> Footer Text #{index}</Text>
           <View style={{flexDirection: "row"}}>
-            <Entypo name="location-pin" size={24} color="black" />
-            <Entypo name="shopping-cart" size={24} color="black" />
-            <MaterialCommunityIcons name="augmented-reality" size={24} color="black" />
+            <Entypo.Button 
+              name="location-pin" 
+              size={24} 
+              color="black" 
+              backgroundColor="plain" 
+            />
+            <Entypo.Button 
+              name="shopping-cart" 
+              size={24} 
+              color="black" 
+              backgroundColor="plain"
+            />
+            <MaterialCommunityIcons.Button 
+              name="augmented-reality" 
+              size={24} 
+              color="black" 
+              backgroundColor="plain"
+            />
           </View>
         </View>            
       </View>
@@ -56,7 +49,7 @@ export default class ItemCarousel extends React.Component {
         <Carousel
           layout={"default"}
           ref={ref => this.carousel = ref}
-          data={this.state.carouselItems}
+          data={this.props.carouselItems}
           sliderWidth={300}
           itemWidth={290}
           renderItem={this._renderItem}
