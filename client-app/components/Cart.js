@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import ItemCarousel from './ItemCarousel';
 
-export default class Subsection extends Component{
+export default class Cart extends Component{
   state = {
-    subsection: null,
     items: []
   }
 
   async componentDidMount() {
-    const { subsection } = this.props.route.params
-    
     try {
       const res = await axios.get(
-        `http://192.168.0.126:5000/section/sub/${subsection}`
+        `http://192.168.1.104:5000/cart/view`
       )
       const { items } = res.data
       this.setState ({
-        subsection,
         items
       })
     } catch(error) {
@@ -32,7 +28,6 @@ export default class Subsection extends Component{
       <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.carousel}>
-          <Text> Top Picks </Text>
           <ItemCarousel carouselItems={this.state.items}/>
         </View>
       </View>
@@ -53,9 +48,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: "space-around", 
     justifyContent: "flex-start",
-  },
-  button: {
-    flex: 1,
-    justifyContent: "flex-end"
   }
 });

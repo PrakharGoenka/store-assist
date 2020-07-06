@@ -2,9 +2,11 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Header from './components/Header';
 import Home from './components/Home';
 import Assist from './components/Assist';
 import Subsection from './components/Subsection';
+import Cart from './components/Cart';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +28,22 @@ export default function App() {
         <Stack.Screen
           name="Subsection"
           component={Subsection}
-          options={{ title: 'Explore Subsection' }}
+          options={
+            ({route, navigation}) => ({
+              headerTitle: props => (
+                <Header 
+                  {...props} 
+                  title={route.params.subsection} 
+                  navigation={navigation}
+                />
+              )
+            })
+          }
+        />
+        <Stack.Screen
+          name="Cart"
+          component={Cart}
+          options={{ title: 'View Cart' }}
         />
       </Stack.Navigator>
     </NavigationContainer>    
