@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Text, View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 const { width } = Dimensions.get("window");
 
@@ -9,12 +10,20 @@ export default class Assist extends Component {
     tiles : []
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this._isMounted = true;
-    this.setState ({
-      tileDimensions : calcTileDimensions(width, 2),
-      tiles : 'Lorem Ipsum Dolor Sit Amet to the very end'.split(' ')
-    })
+    try {
+      const res = await axios.get(
+        "http://192.168.1.104:5000/section/Electronics"
+      )
+      const subsections = res.data.sections
+      this.setState ({
+        tileDimensions : calcTileDimensions(width, 2),
+        tiles : subsections
+      })
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   componentWillUnmount() {
