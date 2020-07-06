@@ -22,20 +22,21 @@ export default class Assist extends Component {
   }
 
   render() {
+    const { navigation } = this.props
     return (
       <ScrollView>
         <View style={styles.container}>
-          {this.state.tiles.map(i => Item({...this.state.tileDimensions, text: i}))}     
+          {this.state.tiles.map(i => Item({...this.state.tileDimensions, text: i, navigation}))}     
         </View>
       </ScrollView>
     );
   }
 }
 
-const Item = ({size, margin, text}) => (
+const Item = ({size, margin, text, navigation}) => (
     <View key={text} 
       style={[styles.item, {width: size, height: size, marginHorizontal: margin}]} 
-      onStartShouldSetResponder={() => alert('You click by View')}>
+      onStartShouldSetResponder={() => navigation.navigate('Subsection')}>
       <Text style={styles.itemText}>{text}</Text>
     </View>
 )
