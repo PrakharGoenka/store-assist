@@ -17,7 +17,7 @@ export default class Subsection extends Component{
     })
     try {
       const res = await axios.get(
-        `http://192.168.1.103:5000/section/sub/${subsection}`
+        `http://192.168.0.126:5000/section/sub/${subsection}`
       )
       const { items } = res.data
       this.setState ({

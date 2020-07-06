@@ -14,7 +14,7 @@ export default class Assist extends Component {
     this._isMounted = true;
     try {
       const res = await axios.get(
-        "http://192.168.1.104:5000/section/Electronics"
+        "http://192.168.0.126:5000/section/Furniture"
       )
       const subsections = res.data.sections
       this.setState ({
@@ -45,7 +45,7 @@ export default class Assist extends Component {
 const Item = ({size, margin, text, navigation}) => (
     <View key={text} 
       style={[styles.item, {width: size, height: size, marginHorizontal: margin}]} 
-      onStartShouldSetResponder={() => navigation.navigate('Subsection')}>
+      onStartShouldSetResponder={() => navigation.navigate('Subsection', {subsection : text})}>
       <Text style={styles.itemText}>{text}</Text>
     </View>
 )
