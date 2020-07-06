@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -13,12 +13,13 @@ export default class ItemCarousel extends React.Component {
     return (
       <View style={styles.list}>
         <View style={styles.item}>
-          <Text style={{fontSize: 30}}>{item.title}</Text>
-          <Text>{item.text}</Text>
-        </View>
+          <Image 
+            style={{resizeMode: "contain", flex: 1}}
+            source={{uri: item.url}} 
+          />
+          <Text>{item.name}</Text>
+        </View> 
         <View style={styles.footer}>
-          <Text> Footer Text #{index}</Text>
-          <View style={{flexDirection: "row"}}>
             <Entypo.Button 
               name="location-pin" 
               size={24} 
@@ -37,8 +38,7 @@ export default class ItemCarousel extends React.Component {
               color="black" 
               backgroundColor="plain"
             />
-          </View>
-        </View>            
+        </View>           
       </View>
     )
   }
@@ -73,15 +73,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   item: {
-    flex: 3,
-    backgroundColor:'lightgrey',
-    height: 250,
-    padding: 50,
+    flex: 1,
   },
   footer: {
-    flex: 2, 
-    flexDirection: "row",
-    alignItems: 'center', 
-    justifyContent: "space-between"
+    flexDirection: "row-reverse"
   }
 });
