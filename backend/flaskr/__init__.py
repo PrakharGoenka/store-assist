@@ -49,6 +49,11 @@ def create_app(test_config=None):
         name = db.StringField(max_length=100, required = True)
         items = db.EmbeddedDocumentListField(Item)
 
+    class Homepage(db.Document):
+        loc = db.StringField(max_length=100, required = True)
+        name = db.StringField(max_length=100, required = True)
+        items = db.EmbeddedDocumentListField(Item)
+
     class Cart(db.Document):
         item = db.EmbeddedDocumentField(Item)
 
@@ -63,29 +68,92 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/hello')
     def hello():
-        camera1 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/51UHoxzInpL._AC_SX184_.jpg",name="Canon EOS 1500D 24.1", desc = "Canon EOS 1500D 24.1 Digital SLR Camera (Black) with EF S18-55 is II Lens, 16GB Card and Carry Case")
-        camera2 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/41+-LjzbkuL._AC_SX184_.jpg",name="Sony Alpha ILCE5100L 24.3MP", desc = "Sony Alpha ILCE5100L 24.3MP Digital SLR Camera (Black) with 16-50mm Lens with Free Case (Bag)")
-        camera3 = Item(url="https://images-na.ssl-images-amazon.com/images/I/415ZSUQ2erL.jpg",name="Canon EOS 200D", desc = "Canon EOS 200D II 24.1MP Digital SLR Camera + EF-S 18-55mm is STM Lens + EF-S 55-250mm is STM Lens (Black)")
-        camera4 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/51QiHopSU8L._AC_SX184_.jpg",name="Sony Alpha ILCE 6000Y 24.3 MP ", desc = "Sony Alpha ILCE 6000Y 24.3 MP Mirrorless Digital SLR Camera with 16-50 mm and 55-210 mm Zoom Lenses (APS-C Sensor, Fast Auto Focus, Eye AF) - Black")
-        cameraSection = Section(loc="C1", name="Cameras", items=[camera1, camera2, camera3, camera4]).save()
 
-        phone1 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/71OxJeyywSL._AC._SR360,460.jpg",name="Samsung Galaxy M31", desc = "Space Black, 6GB RAM, 128GB Storage")
-        phone2 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/61ACGAKmw3L._AC._SR360,460.jpg",name="Redmi Note 8 Pro",desc="Halo White, 6GB RAM, 128GB Storage with Helio G90T Processor")
-        phone3 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/415IOkCUtgL._AC._SR180,230.jpg",name="Vivo U10",desc="Electric Blue, 5000 mAH 18W Fast Charge Battery, 3GB RAM, 32GB Storage")
-        phone4 = Item(url="https://images-eu.ssl-images-amazon.com/images/I/31Z2ee9oYQL._AC._SR180,230.jpg",name="Nokia 105 2019",desc="Single SIM, Black")
-        phoneSection = Section(loc="P1",name="Mobiles", items=[phone1, phone2, phone3, phone4]).save()
+        #Apparel,Groceries,Furniture,Beauty
+        btapparel=BTsects(btid="001",section="Apparel").save()
+        btapparel=BTsects(btid="002",section="Groceries").save()
+        btapparel=BTsects(btid="003",section="Furniture").save()
+        btapparel=BTsects(btid="004",section="Beauty").save()
 
-        elecSect = SuperSection(name="Electronics",sections=['cameraSection', 'phoneSection']).save()
+
+        # top1 = Item(url="https://m.media-amazon.com/images/I/61yZJiJvgoL._AC_UL480_QL65_.jpg",name="Skinn by Titan", desc = "Raw Perfume For Men, 100ml")
+        # top2 = Item(url="https://m.media-amazon.com/images/I/81l2CbIMl0L._AC_UL480_QL65_.jpg",name="Adidas Ice Dive Eau De Toilette", desc = " For Men, 100ml")
+        # top3 = Item(url="https://m.media-amazon.com/images/I/91QvfXZ4aVL._AC_UL480_QL65_.jpg",name="Men's Solid Regular Fit T-Shirt", desc = "Best Fit, For Sports")
+        # top4 = Item(url="https://m.media-amazon.com/images/I/81wyC4uxwDL._AC_UL480_QL65_.jpg",name="Britannia Good Day Cashew", desc = "200g biscuits")
+        # top5 = Item(url="https://m.media-amazon.com/images/I/61mKvVG+gmL._AC_UL480_QL65_.jpg",name="Portronics POR-857 My Buddy",desc="A Hydraulic Piston Fitted Height Adjustable Laptop Stand (White)")
+        # topSection = Section(loc="NA", name="Top5", items=[top1, top2, top3, top4, top5]).save()
+
+        # tshirt1 = Item(url="https://m.media-amazon.com/images/I/91QvfXZ4aVL._AC_UL480_QL65_.jpg",name="Men's Solid Regular Fit T-Shirt", desc = "Best Fit, For Sports")
+        # tshirt2 = Item(url="https://m.media-amazon.com/images/I/81NXw8FQ2-L._AC_UL480_QL65_.jpg",name="Men's Cotton T-Shirt", desc = "Jockey, Cotton")
+        # tshirt3 = Item(url="https://m.media-amazon.com/images/I/819Cja8v6XL._AC_UL480_QL65_.jpg",name="Men's Solid Regular Fit T-Shirt Sleeve", desc = "Van Heusen Athleisure")
+        # tshirt4 = Item(url="https://m.media-amazon.com/images/I/81Yqx-u2z4L._AC_UL480_QL65_.jpg",name="Men's Polo",desc="AllenSolly")
+        # TshirtSection = Section(loc="T1",name="TShirts",items=[tshirt1,tshirt2,tshirt3,tshirt4]).save()
+
+        # jeans1 = Item(url="https://m.media-amazon.com/images/I/616xchp1ECL._AC_UL480_QL65_.jpg",name="Men's Relaxed Jeans",desc="Ben Martin")
+        # jeans2 = Item(url="https://m.media-amazon.com/images/I/812iG5h2AQL._AC_UL480_QL65_.jpg",name="Men's Jeans",desc="Max")
+        # jeans3 = Item(url="https://m.media-amazon.com/images/I/81rcMJm4kFL._AC_UL480_QL65_.jpg",name="Men's Slim Fit Stretchable Jeans")
+        # JeansSection = Section(loc="J1",name="Jeans",items=[jeans1,jeans2, jeans3]).save()
+
+        # apparelsSect = SuperSection(name="Apparel",sections=["TShirts", "Jeans"]).save()
+
+
+        # bis1=Item(url="https://m.media-amazon.com/images/I/81wyC4uxwDL._AC_UL480_QL65_.jpg",name="Britannia Good Day Cashew", desc = "200g biscuits")
+        # bis2=Item(url="https://m.media-amazon.com/images/I/819bDz6Q9DL._AC_UL480_QL65_.jpg",name="Sunfeast Mom's Magic",desc="Cashew and Almond, 600g") 
+        # bis3=Item(url="https://m.media-amazon.com/images/I/71GPNxlsgZL._AC_UL480_QL65_.jpg",name="Sunfeast Dark Fantasy",desc="Bourbon Bliss, 150g")
+        # bis4=Item(url="https://m.media-amazon.com/images/I/51qHxF-NgsL._AC_UL480_QL65_.jpg",name="Dark Fantasy Choco Fills",desc="Tasty, 300g")
+        # BisSect=Section(loc="G1",name="Biscuits",items=[bis1,bis2,bis3,bis4]).save()
+
+        # Grocery=SuperSection(name="Groceries",sections=['Biscuits']).save()
+
+        # furn1=Item(url="https://m.media-amazon.com/images/I/51EsMEAiQYL._AC_UL480_QL65_.jpg",name="Brand Enterprise SOFLIN 5 in 1",desc="Inflatable 3-Seater Queen Size Sofa Cum Bed with Pump")
+        # furn2=Item(url="https://m.media-amazon.com/images/I/71lyvDlj5PL._AC_UL480_QL65_.jpg",name="Coirfit Folding Sofa Cum Bed",desc="Perfect for Guests")
+        # furn3=Item(url="https://m.media-amazon.com/images/I/71MMzmmLMiL._AC_UL480_QL65_.jpg",name="Furny Herostyle 3 Seater Sofa",desc="(Grey-Black)")
+        # furn4=Item(url="https://m.media-amazon.com/images/I/61mKvVG+gmL._AC_UL480_QL65_.jpg",name="Portronics POR-857 My Buddy",desc="A Hydraulic Piston Fitted Height Adjustable Laptop Stand (White)")
+        # FrunSect=Section(loc="F1",name="Stylish Furniture",items=[furn1,furn2,furn3,furn4]).save()
+        # SuperFurn=SuperSection(name="Furniture",sections=['Stylish Furniture']).save()
+
+        # trend1=Item(url="https://m.media-amazon.com/images/I/812iG5h2AQL._AC_UL480_QL65_.jpg",name="Men's Jeans",desc="Max")
+        # trend2=Item(url="https://m.media-amazon.com/images/I/81Yqx-u2z4L._AC_UL480_QL65_.jpg",name="Men's Polo",desc="AllenSolly")
+        # trend3=Item(url="https://m.media-amazon.com/images/I/51EsMEAiQYL._AC_UL480_QL65_.jpg",name="Brand Enterprise SOFLIN 5 in 1",desc="Inflatable 3-Seater Queen Size Sofa Cum Bed with Pump")
+        # trend4=Item(url="https://m.media-amazon.com/images/I/61oYfImcEoL._AC_UL480_QL65_.jpg",name="Liril Lemon and Tea Tree Oil Soap",desc="125 g (Buy 3 Get 75g Free)")
+        # Trending=Homepage(loc="NA", name="Trending", items=[trend1,trend2,trend3,trend4]).save()
+
+
+
+        # phone1 = Item(url="https://m.media-amazon.com/images/I/51EspAFAcQL._AC_UL480_QL65_.jpg",name="Pears Soft and Fresh Bathing Bar", desc = "125g (Buy 3 Get 1 Free)")
+        # phone2 = Item(url="https://m.media-amazon.com/images/I/61oYfImcEoL._AC_UL480_QL65_.jpg",name="Liril Lemon and Tea Tree Oil Soap",desc="125 g (Buy 3 Get 75g Free)")
+        # phone3 = Item(url="https://m.media-amazon.com/images/I/714LxZtecNL._AC_UL480_QL65_.jpg",name="Santoor Sandal and Almond Milk Soap",desc="(Buy 4 Get 1 Free 125g each)")
+        # phone4 = Item(url="https://m.media-amazon.com/images/I/71b5SRkcr5L._AC_UL480_QL65_.jpg",name="NIVEA Soap",desc="Creme Soft, For Hands And Body, 125g (BUY 2 GET 2)")
+        # soapSection = Section(loc="B2",name="Soaps", items=[phone1, phone2, phone3, phone4]).save()
+
+        # elecSect = SuperSection(name="Beauty",sections=['creamSection', 'soapSection']).save()
 
         return 'Hello, World!'
+
+    @app.route('/home', methods=['GET'])
+    def getHome():
+        jsonstr={}
+        for sect in Homepage.objects:
+            itemlist=[]
+            for item in sect.items:
+                obj = {
+                    "url": item.url,
+                    "name": item.name,
+                    "desc": item.desc
+                }
+                itemlist.append(obj)
+            jsonstr[sect.name]=itemlist
+
+        return json.loads(json.dumps(jsonstr))
+            
+            
 
     @app.route('/bt/<btid>', methods=['GET'])
     def getSectionBT(btid):
         sec = BTsects.objects(btid=btid).first().section
         url = 'http://127.0.0.1:5000/section/'+sec
         resp = requests.get(url).text
-        print(resp)
-        return "trying"
+        return resp
 
 
     @app.route('/section/<superSectName>', methods=['GET'])
