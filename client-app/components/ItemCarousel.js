@@ -1,15 +1,36 @@
-import * as React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import React from 'react';
+import axios from 'axios';
+import { Text, View, Image, ToastAndroid, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { 
+  Entypo, 
+  MaterialCommunityIcons, 
+  MaterialIcons
+} from '@expo/vector-icons';
 
 export default class ItemCarousel extends React.Component { 
   state = {
     activeIndex:0,
   }  
 
-  _renderItem({item,index}){
+  getLocation = async ( item ) => {
+    try {
+      const res = await axios.get(
+        `http://192.168.1.104:5000/location/${item.name}`
+      )
+      ToastAndroid.showWithGravityAndOffset(
+        res.data.loc,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        120
+      )
+    } catch (error) {
+      console.log(error)
+    }    
+  }
+
+  renderItem = ({item, index}) => {
     return (
       <View style={styles.list}>
         <View style={styles.item}>
@@ -24,19 +45,20 @@ export default class ItemCarousel extends React.Component {
               name="location-pin" 
               size={24} 
               color="black" 
-              backgroundColor="plain" 
+              backgroundColor="white" 
+              onPress={() => this.getLocation(item)}
             />
-            <Entypo.Button 
-              name="shopping-cart" 
+            <MaterialIcons.Button
+              name="add-shopping-cart" 
               size={24} 
               color="black" 
-              backgroundColor="plain"
+              backgroundColor="white" 
             />
             <MaterialCommunityIcons.Button 
               name="augmented-reality" 
               size={24} 
               color="black" 
-              backgroundColor="plain"
+              backgroundColor="white"
             />
         </View>           
       </View>
@@ -52,7 +74,7 @@ export default class ItemCarousel extends React.Component {
           data={this.props.carouselItems}
           sliderWidth={300}
           itemWidth={290}
-          renderItem={this._renderItem}
+          renderItem={this.renderItem}
           onSnapToItem = { index => this.setState({activeIndex:index}) } />
       </View>
     );
