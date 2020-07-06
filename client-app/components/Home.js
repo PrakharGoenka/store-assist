@@ -25,25 +25,25 @@ export default class Home extends Component{
   render() {
     const carouselItems = [
       {
-          title:"Item 1",
-          text: "Text 1",
-      },
+        desc: "Canon EOS 1500D 24.1 Digital SLR Camera (Black) with EF S18-55 is II Lens, 16GB Card and Carry Case", 
+        name: "Canon EOS 1500D 24.1", 
+        url: "https://images-eu.ssl-images-amazon.com/images/I/51UHoxzInpL._AC_SX184_.jpg"
+      }, 
       {
-          title:"Item 2",
-          text: "Text 2",
-      },
+        desc: "Sony Alpha ILCE5100L 24.3MP Digital SLR Camera (Black) with 16-50mm Lens with Free Case (Bag)", 
+        name: "Sony Alpha ILCE5100L 24.3MP", 
+        url: "https://images-eu.ssl-images-amazon.com/images/I/41+-LjzbkuL._AC_SX184_.jpg"
+      }, 
       {
-          title:"Item 3",
-          text: "Text 3",
-      },
+        desc: "Canon EOS 200D II 24.1MP Digital SLR Camera + EF-S 18-55mm is STM Lens + EF-S 55-250mm is STM Lens (Black)", 
+        name: "Canon EOS 200D", 
+        url: "https://images-na.ssl-images-amazon.com/images/I/415ZSUQ2erL.jpg"
+      }, 
       {
-          title:"Item 4",
-          text: "Text 4",
-      },
-      {
-          title:"Item 5",
-          text: "Text 5",
-      },
+        desc: "Sony Alpha ILCE 6000Y 24.3 MP Mirrorless Digital SLR Camera with 16-50 mm and 55-210 mm Zoom Lenses (APS-C Sensor, Fast Auto Focus, Eye AF) - Black", 
+        name: "Sony Alpha ILCE 6000Y 24.3 MP ", 
+        url: "https://images-eu.ssl-images-amazon.com/images/I/51QiHopSU8L._AC_SX184_.jpg"
+      }
     ]
 
     return (
