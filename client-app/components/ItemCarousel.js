@@ -30,6 +30,25 @@ export default class ItemCarousel extends React.Component {
     }    
   }
 
+  addToCart =  async ( item ) => {
+    try {
+      const res = await axios.post(
+        `http://192.168.1.104:5000/cart/add`,
+        {name: item.name}
+      )
+      console.log(res.data)
+      ToastAndroid.showWithGravityAndOffset(
+        res.data,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        120
+      )
+    } catch (error) {
+      console.log(error)
+    }    
+  }
+
   renderItem = ({item, index}) => {
     return (
       <View style={styles.list}>
@@ -53,6 +72,7 @@ export default class ItemCarousel extends React.Component {
               size={24} 
               color="black" 
               backgroundColor="white" 
+              onPress={() => this.addToCart(item)}
             />
             <MaterialCommunityIcons.Button 
               name="augmented-reality" 
