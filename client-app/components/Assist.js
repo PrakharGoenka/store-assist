@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Text, View, StyleSheet, Dimensions, ScrollView, ImageBackground } from 'react-native';
 const { width } = Dimensions.get("window");
-const image = {uri : 'https://www.publicdomainpictures.net/pictures/30000/velka/plain-white-background.jpg'}
+const image = {uri : 'https://previews.123rf.com/images/photobyphotoboy/photobyphotoboy1609/photobyphotoboy160900333/63312735-blur-apparel-in-the-mall.jpg'}
 export default class Assist extends Component {
   _isMounted = false;
   state = {
@@ -36,13 +36,13 @@ export default class Assist extends Component {
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
-          <Text style={styles.heading}>Current Section</Text>
-          <Text style={styles.subHeading}>{this.state.currentSection}</Text>
-          <ScrollView>
-            <View style={styles.container}>
-              {this.state.tiles.map(i => Item({...this.state.tileDimensions, text: i, navigation}))}     
-            </View>
-          </ScrollView>
+        <Text style={styles.heading}>Current Section</Text>
+        <Text style={styles.subHeading}>{this.state.currentSection}</Text>
+        <ScrollView>
+          <View style={styles.container}>
+            {this.state.tiles.map(i => Item({...this.state.tileDimensions, text: i, navigation}))}     
+          </View>
+        </ScrollView>
         </ImageBackground>
       </View>
     );
@@ -65,7 +65,7 @@ const calcTileDimensions = (deviceWidth, tpr) => {
 
 const styles = StyleSheet.create({
   container: {
-     justifyContent: "flex-start", flexDirection: "row", flexWrap: "wrap", marginTop: 30
+     justifyContent: "flex-start", flexDirection: "row", flexWrap: "wrap", marginTop: 0
   },
   item: {
     backgroundColor: '#' + Math.floor(Math.random()*16777215).toString(16),
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
      marginBottom: 20,
      borderRadius: 10,
      borderWidth: 1,
-     borderColor: '#fff'
+     borderColor: 'black'
   },
   itemText: {
     color: 'black',
@@ -91,11 +91,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'blue',
     borderBottomColor: 'black',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    marginBottom: 10
   },
   image: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center"
+    justifyContent: "center",
+    width: 480,
+    height: 750
   }
 });

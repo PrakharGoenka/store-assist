@@ -8,7 +8,7 @@ import Assist from './components/Assist';
 import Subsection from './components/Subsection';
 import Cart from './components/Cart';
 import BarCode from './components/BarCode';
-
+import Search from './components/Search'
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -18,7 +18,17 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ title: 'Welcome' }
+          options={
+            ({route, navigation}) => ({
+              headerTitle: props => (
+                <Header 
+                  {...props} 
+                  isAssist = {0}
+                  title={"Welcome"} 
+                  navigation={navigation}
+                />
+              )
+            })
           }
         />
         <Stack.Screen
@@ -29,6 +39,7 @@ export default function App() {
               headerTitle: props => (
                 <Header 
                   {...props} 
+                  isAssist = {1}
                   title={"Store Assist"} 
                   navigation={navigation}
                 />
@@ -61,6 +72,11 @@ export default function App() {
           component={BarCode}
           options={{ title: 'Welcome' }
           }
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{ title: 'Serach'}}
         />
       </Stack.Navigator>
     </NavigationContainer>    

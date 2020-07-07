@@ -3,7 +3,7 @@ import axios from 'axios';
 import { StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import ItemCarousel from './ItemCarousel';
-
+const image = {uri : 'https://previews.123rf.com/images/photobyphotoboy/photobyphotoboy1609/photobyphotoboy160900333/63312735-blur-apparel-in-the-mall.jpg'}
 export default class Subsection extends Component{
   state = {
     subsection: null,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   carousel: {
     flex: 5,
