@@ -12,7 +12,7 @@ export default class Home extends Component{
 
   async componentDidMount() {
     try {
-      const res = await axios.get('http://192.168.1.104:5000/home')
+      const res = await axios.get('http://192.168.0.126:5000/home')
       const { Top5, Trending } = res.data
       this.setState({
         Top5,
@@ -30,11 +30,11 @@ export default class Home extends Component{
       <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.carousel}>
-          <Text> You may like </Text>
+          <Text style={{color: 'green'}}> You may like </Text>
           <ItemCarousel carouselItems={Top5}/>
         </View>
         <View style={styles.carousel}>
-          <Text> Trending today </Text>
+          <Text style={{color: 'green'}}> Trending today </Text>
           <ItemCarousel carouselItems={Trending}/>
         </View>
         <View style={styles.button}>
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    paddingBottom:5
   }
 });
