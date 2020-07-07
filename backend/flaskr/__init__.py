@@ -222,6 +222,22 @@ def create_app(test_config=None):
                 return 'removed'
         return 'Error'
 
+    @app.route('/search/<itemName>', methods=['GET'])
+    def searchForItem(itemName):
+        itemlist=[]
+        for sect in Section.objects:
+            for item in sect.items:
+                if item.name.lower().find(itemName.lower())!=-1 or item.desc.lower().find(itemName.lower())!=-1:
+                    obj = {
+                        "url": item.url,
+                        "name": item.name,
+                        "desc": item.desc
+                    }
+                    itemlist.append(obj)
+
+        jsonstr= '{"items": '+json.dumps(itemlist)+'}'
+        return json.loads(jsonstr)
+
 
     @app.route('/cart/view', methods=['GET'])
     def viewCart():
