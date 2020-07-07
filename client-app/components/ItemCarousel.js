@@ -16,15 +16,9 @@ export default class ItemCarousel extends React.Component {
   getLocation = async ( item ) => {
     try {
       const res = await axios.get(
-        `http://192.168.1.104:5000/location/${item.name}`
+        `http://192.168.0.126:5000/location/${item.name}`
       )
-      ToastAndroid.showWithGravityAndOffset(
-        res.data.loc,
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        0,
-        120
-      )
+      alert("You can find "+ item.name + " at shelf number "+ res.data.loc);
     } catch (error) {
       console.log(error)
     }    
@@ -32,9 +26,10 @@ export default class ItemCarousel extends React.Component {
 
   addToCart =  async ( item ) => {
     try {
+      console.log(item.name);
       const res = await axios.post(
-        `http://192.168.1.104:5000/cart/add`,
-        {name: item.name}
+        `http://192.168.0.126:5000/cart/add`,
+        {'name': item.name}
       )
       console.log(res.data)
       ToastAndroid.showWithGravityAndOffset(
@@ -49,7 +44,44 @@ export default class ItemCarousel extends React.Component {
     }    
   }
 
+  removeFromCart =  async ( item ) => {
+    try {
+      console.log(item.name);
+      const res = await axios.post(
+        `http://192.168.0.126:5000/cart/remove`,
+        {'name': item.name}
+      )
+      this.setState({
+        activeIndex: activeIndex+1
+      })
+      console.log(res.data)
+      ToastAndroid.showWithGravityAndOffset(
+        res.data,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        120
+      )
+    } catch (error) {
+      console.log(error)
+    }    
+  }
+
   renderItem = ({item, index}) => {
+    const addCart = <MaterialIcons.Button
+                      name="add-shopping-cart" 
+                      size={24} 
+                      color="black" 
+                      backgroundColor="white" 
+                      onPress={() => this.addToCart(item)}
+                    />
+    const removeCart = <MaterialIcons.Button
+                          name="delete" 
+                          size={24} 
+                          color="black" 
+                          backgroundColor="white" 
+                          onPress={() => this.removeFromCart(item)}
+                        />
     return (
       <View style={styles.list}>
         <View style={styles.item}>
@@ -67,13 +99,7 @@ export default class ItemCarousel extends React.Component {
               backgroundColor="white" 
               onPress={() => this.getLocation(item)}
             />
-            <MaterialIcons.Button
-              name="add-shopping-cart" 
-              size={24} 
-              color="black" 
-              backgroundColor="white" 
-              onPress={() => this.addToCart(item)}
-            />
+            {this.props.isCart ? removeCart : addCart}
             <MaterialCommunityIcons.Button 
               name="augmented-reality" 
               size={24} 

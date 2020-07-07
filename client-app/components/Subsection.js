@@ -33,7 +33,7 @@ export default class Subsection extends Component{
         <StatusBar style="auto" />
         <View style={styles.carousel}>
           <Text> Top Picks </Text>
-          <ItemCarousel carouselItems={this.state.items}/>
+          <ItemCarousel carouselItems={this.state.items} isCart={0}/>
         </View>
       </View>
     );

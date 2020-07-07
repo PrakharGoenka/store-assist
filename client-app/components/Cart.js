@@ -12,7 +12,7 @@ export default class Cart extends Component{
   async componentDidMount() {
     try {
       const res = await axios.get(
-        `http://192.168.1.104:5000/cart/view`
+        `http://192.168.0.126:5000/cart/view`
       )
       const { items } = res.data
       this.setState ({
@@ -23,12 +23,13 @@ export default class Cart extends Component{
     }
   }
 
+  
   render() {
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.carousel}>
-          <ItemCarousel carouselItems={this.state.items}/>
+          <ItemCarousel carouselItems={this.state.items} isCart={1}/>
         </View>
       </View>
     );
