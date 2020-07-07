@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import axios from 'axios';
 
 export default function BarCode() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -13,9 +14,50 @@ export default function BarCode() {
     })();
   }, []);
 
+  const addToCart =  async ( name ) => {
+    try {
+      const res = await axios.post(
+        `http://192.168.0.126:5000/cart/add`,
+        {'name': name}
+      )
+      console.log(res.data)
+      ToastAndroid.showWithGravityAndOffset(
+        res.data,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        120
+      )
+    } catch (error) {
+      console.log(error)
+    }    
+  }
+
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    name = null
+    if(data === '051111407592') {
+      name = "Men's Solid Regular Fit T-Shirt";
+    }
+    Alert.alert(
+      "Add to Cart",
+      "Add " + data + " to Cart?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "Ok",
+          onPress: () => addToCart(name)
+        }
+      ],
+      {
+        cancelable: false
+      }
+    );
   };
 
   if (hasPermission === null) {
