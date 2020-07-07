@@ -12,6 +12,16 @@ from flask import request
 
 import requests
 
+from exponent_server_sdk import DeviceNotRegisteredError
+from exponent_server_sdk import PushClient
+from exponent_server_sdk import PushMessage
+from exponent_server_sdk import PushResponseError
+from exponent_server_sdk import PushServerError
+from requests.exceptions import ConnectionError
+from requests.exceptions import HTTPError
+
+
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -38,6 +48,8 @@ def create_app(test_config=None):
         pass
 
     db = MongoEngine(app)
+    
+    tokens = {}
 
     class Item(db.EmbeddedDocument):
         url = db.StringField(max_length=200, required = True)
@@ -252,5 +264,20 @@ def create_app(test_config=None):
         
         jsonstr = '{"items": '+json.dumps(itemlist)+'}'
         return json.loads(jsonstr)
+
+    @app.route('/token/<tokenid>', methods=['GET'])
+    def assignToken(tokenid):
+        tokens['token']=tokenid
+        return "Accepted"
+
+    @app.route('/bt/newloc/<btid>', methods=['GET'])
+    def updateApp(btid):
+        print(tokens['token'])
+        message=btid
+        extra=None
+        response = PushClient().publish(PushMessage(to=tokens['token'],body=message,data=extra))
+        return 'notif sent'
+        
+
 
     return app
