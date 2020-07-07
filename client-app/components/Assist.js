@@ -29,13 +29,19 @@ export default class Assist extends Component {
       notification: false
     }
     this.registerForPushNotificationsAsync()
-    .then(token => this.setState({
-      expoPushToken: token
-    }))
+    .then(token => {
+        this.setState({
+          expoPushToken: token
+        })
+        axios.get(`http://192.168.0.126:5000/token/${token}`)
+      }
+    )
+
     Notifications.addNotificationReceivedListener(notification => {
       this.updateSection(notification.request.content.body)
       console.log(notification.request.content.body, '23432')
     });
+
   }
 
   async updateSection(btId) {
