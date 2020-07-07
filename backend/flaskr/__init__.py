@@ -199,7 +199,8 @@ def create_app(test_config=None):
 
     @app.route('/cart/add', methods=['POST'])
     def addToCart():
-        json_obj = json.loads(json.dumps(request.form))
+        json_obj = request.json
+        print(json_obj)
         itemName = json_obj['name']
         for cartItem in Cart.objects:
             if cartItem.item.name == itemName:
@@ -213,7 +214,7 @@ def create_app(test_config=None):
 
     @app.route('/cart/remove', methods=['POST'])
     def removeFromCart():
-        json_obj = json.loads(json.dumps(request.form))
+        json_obj = request.json
         itemName = json_obj['name']
         for cartItem in Cart.objects:
             if cartItem.item.name == itemName:
