@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
 
         self.surf = pygame.Surface((25, 25))
 
-        self.surf.fill((255, 255, 255))
+        self.surf.fill((0, 102, 204))
 
         self.rect = self.surf.get_rect()
 
@@ -168,17 +168,27 @@ while running:
 
     # Fill the screen with black
 
-    screen.fill((0, 0, 0))
+    screen.fill((229, 255, 204))
 
-    pygame.draw.rect(screen, (255,0,0), (0,0,300,800), 0)
-    pygame.draw.rect(screen, (0,255,0), (300,0,300,800), 0)
-    pygame.draw.rect(screen, (0,0,255), (600,0,300,800), 0)
-    pygame.draw.rect(screen, (255,200,200), (900,0,300,800), 0)
-    pygame.draw.rect(screen, (0,0,128), (1200,0,300,800), 0)
+    pygame.draw.rect(screen, (204,255,153), (0,0,300,800), 0)
+    pygame.draw.rect(screen, (153,255,204), (300,0,300,800), 0)
+    pygame.draw.rect(screen, (204,153,255), (600,0,300,800), 0)
+    pygame.draw.rect(screen, (255,255,153), (900,0,300,800), 0)
+    pygame.draw.rect(screen, (224,224,224), (1200,0,300,800), 0)
+
+    # Draw Store Layout
+    pygame.draw.rect(screen, (0, 0, 0), (80, 0, 1500, 30), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (1470, 0, 30, 800), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (0, 80, 30, 800), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (0, 570, 1500, 600), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (125, 100, 60, 400), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (415, 100, 60, 400), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (715, 100, 60, 400), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (1020, 100, 60, 400), 0)
+    pygame.draw.rect(screen, (0, 0, 0), (1305, 100, 60, 400), 0)
+    
     # Draw the player on the screen
-
     screen.blit(player.surf, player.rect)
-
 
     # Update the display
 
