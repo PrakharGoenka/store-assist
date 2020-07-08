@@ -16,7 +16,7 @@ export default class ItemCarousel extends React.Component {
   getLocation = async ( item ) => {
     try {
       const res = await axios.get(
-        `http://192.168.0.126:5000/location/${item.name}`
+        `http://192.168.1.101:5000/location/${item.name}`
       )
       alert("You can find "+ item.name + " at shelf number "+ res.data.loc);
     } catch (error) {
@@ -28,7 +28,7 @@ export default class ItemCarousel extends React.Component {
     try {
       console.log(item.name);
       const res = await axios.post(
-        `http://192.168.0.126:5000/cart/add`,
+        `http://192.168.1.101:5000/cart/add`,
         {'name': item.name}
       )
       console.log(res.data)
@@ -48,7 +48,7 @@ export default class ItemCarousel extends React.Component {
     try {
       console.log(item.name);
       const res = await axios.post(
-        `http://192.168.0.126:5000/cart/remove`,
+        `http://192.168.1.101:5000/cart/remove`,
         {'name': item.name}
       )
       this.setState({

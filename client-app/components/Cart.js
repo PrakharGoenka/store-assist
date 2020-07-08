@@ -12,7 +12,7 @@ export default class Cart extends Component{
   async componentDidMount() {
     try {
       const res = await axios.get(
-        `http://192.168.0.126:5000/cart/view`
+        `http://192.168.1.101:5000/cart/view`
       )
       const { items } = res.data
       this.setState ({

@@ -19,7 +19,7 @@ export default class Cart extends Component{
   handleSearch = () => {
     try {
         axios.get(
-          `http://192.168.0.126:5000/search/${this.state.inputField}`
+          `http://192.168.1.101:5000/search/${this.state.inputField}`
         ).then((res)=>
             this.setState({
                 items: res.data['items']

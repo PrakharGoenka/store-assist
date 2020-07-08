@@ -12,7 +12,7 @@ export default class Home extends Component{
 
   async componentDidMount() {
     try {
-      const res = await axios.get('http://192.168.0.126:5000/home')
+      const res = await axios.get('http://192.168.1.101:5000/home')
       const { Top5, Trending } = res.data
       this.setState({
         Top5,

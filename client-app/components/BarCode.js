@@ -17,7 +17,7 @@ export default function BarCode() {
   const addToCart =  async ( name ) => {
     try {
       const res = await axios.post(
-        `http://192.168.0.126:5000/cart/add`,
+        `http://192.168.1.101:5000/cart/add`,
         {'name': name}
       )
       console.log(res.data)

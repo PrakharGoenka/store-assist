@@ -22,7 +22,7 @@ export default class Assist extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentSection : 'Apparel',
+      currentSection : '',
       tileDimensions : [],
       tiles : [],
       expoPushToken: '',
@@ -33,49 +33,30 @@ export default class Assist extends Component {
         this.setState({
           expoPushToken: token
         })
-        axios.get(`http://192.168.0.126:5000/token/${token}`)
+        axios.get(`http://192.168.1.101:5000/token/${token}`)
       }
     )
 
     Notifications.addNotificationReceivedListener(notification => {
       this.updateSection(notification.request.content.body)
-      console.log(notification.request.content.body, '23432')
     });
 
   }
 
   async updateSection(btId) {
-    console.log('***********function called**************');
-    const response = await axios.get(`http://192.168.0.126:5000/bt/${btId}`);
+    const response = await axios.get(`http://192.168.1.101:5000/bt/${btId}`);
     const section = response.data
     try {
-      // const res = await axios.get(
-      //   `http://192.168.0.126:5000/section/${section.name}`
-      // )
-      console.log(section, 'edknnn,mmnlknknknklnl')
       const subsections = section.sections
-      console.log(subsections, 'please')
       this.setState ({
         tileDimensions : calcTileDimensions(width, 2),
         tiles : subsections,
+        currentSection: section["name:"]
       })
     } catch(error) {
       console.log(error)
     }
   }
-  // async componentWillMount() {
-  //   this.registerForPushNotificationsAsync()
-  //   .then(token => this.setState({
-  //     expoPushToken: token
-  //   })
-  //   const res = axios.get(`http://192.168.0.126:5000/token/${token}`)
-  //   );
-  // }
-  
-
-  // componentWillUnmount() {
-  //   this._isMounted = false;
-  // }
 
   registerForPushNotificationsAsync = async() =>  {
     let token;
@@ -110,7 +91,7 @@ export default class Assist extends Component {
   
   render() {
     if(!this.state.tiles || !this.state.tileDimensions || !this.state.currentSection) {
-      return <Text>{this.state.currentSection}</Text>;
+      return <Text style={styles.subHeading}> No Section Detected </Text>;
     }
     const { navigation } = this.props
     return (
