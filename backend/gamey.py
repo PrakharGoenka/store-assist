@@ -170,7 +170,11 @@ while running:
 
     screen.fill((0, 0, 0))
 
-
+    pygame.draw.rect(screen, (255,0,0), (0,0,300,800), 0)
+    pygame.draw.rect(screen, (0,255,0), (300,0,300,800), 0)
+    pygame.draw.rect(screen, (0,0,255), (600,0,300,800), 0)
+    pygame.draw.rect(screen, (255,200,200), (900,0,300,800), 0)
+    pygame.draw.rect(screen, (0,0,128), (1200,0,300,800), 0)
     # Draw the player on the screen
 
     screen.blit(player.surf, player.rect)
